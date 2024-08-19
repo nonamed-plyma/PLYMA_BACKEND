@@ -5,11 +5,13 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.testboard.plyma_backend.domain.comment.domain.Comment;
 import org.testboard.plyma_backend.domain.user.domain.User;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -32,6 +34,10 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
+
+    //뭔가 하긴 했는데 이게 맞는지 잘 모르겠슴다
+    @OneToMany(mappedBy = "post")
+    private List<Comment> commentList;
 
     @Builder
     public Post(User user, Long id, String title, String content){
