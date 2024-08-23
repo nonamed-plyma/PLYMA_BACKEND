@@ -1,1 +1,18 @@
-spring.application.name=plyma_backend
+server:
+  port: 8080
+
+spring:
+  jwt:
+    key: ${JWT_KEY}
+    access: ${JWT_AC}
+    refresh: ${JWT_RF}
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/plyma
+    username: ${DB_NAME}
+    password: ${DB_PWD}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
