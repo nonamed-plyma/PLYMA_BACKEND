@@ -21,19 +21,15 @@ public class User {
     @Column(length = 4, nullable = false)
     private String name;
 
-    @Column(length = 4)
-    private Integer studentNumber;
-
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
     @Builder
-    public User(String userId, String password, String name, Integer studentNumber, UserRole userRole){
+    public User(String userId, String password, String name, UserRole userRole){
         this.userId = userId;
         this.password = password;
         this.name = name;
-        this.studentNumber = studentNumber;
         this.userRole = userRole;
     }
 }

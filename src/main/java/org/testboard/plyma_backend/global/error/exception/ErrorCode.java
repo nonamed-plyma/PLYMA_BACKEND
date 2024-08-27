@@ -16,7 +16,6 @@ public enum ErrorCode {
     IMAGE_UPLOAD_FAIL(400, "이미지가 정상적으로 저장되지 않았습니다"),
     USER_NOT_MATCH(400, "유저가 일치하지 않습니다."),
     NO_PERMISSION(403, "권한이 없습니다."),
-    QR_BAD_REQUEST(400, "QR이 정상적이지 않습니다."),
 
     //UnAuthorised
     NOT_ACCESS_TOKEN(401, "access 토큰이 아닙니다."),
