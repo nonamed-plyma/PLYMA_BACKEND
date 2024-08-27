@@ -1,4 +1,4 @@
-package org.testboard.plyma_backend.domain.user.service.exception;
+package org.testboard.plyma_backend.domain.user.exception;
 
 import org.testboard.plyma_backend.global.error.exception.BaseException;
 import org.testboard.plyma_backend.global.error.exception.ErrorCode;
