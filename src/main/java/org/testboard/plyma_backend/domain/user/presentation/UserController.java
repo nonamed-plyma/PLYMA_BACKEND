@@ -26,7 +26,7 @@ public class UserController {
     private final LogoutService logoutService;
     private final ReassignTokenService reassignTokenService;
 
-    @PostMapping(value = "/signup")
+    @PostMapping(value = "/singup")
     @ResponseStatus(HttpStatus.CREATED)
     public TokenResponse singUp(@RequestBody SingUpRequest request) {
         return signupService.userSingUp(request);
