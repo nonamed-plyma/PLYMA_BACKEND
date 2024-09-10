@@ -1,8 +1,9 @@
 package org.testboard.plyma_backend.domain.post.service;
 
-import jakarta.transaction.Transactional;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.testboard.plyma_backend.domain.post.domain.Post;
 import org.testboard.plyma_backend.domain.post.domain.repository.PostRepository;
 import org.testboard.plyma_backend.domain.post.presentation.dto.PostRequest;
@@ -13,7 +14,7 @@ import org.testboard.plyma_backend.domain.user.service.util.UserUtil;
 
 @Service
 @RequiredArgsConstructor
-public class PostService {
+public class PostCrudService {
     private final PostRepository postRepository;
     private final UserUtil userUtil;
 
@@ -36,7 +37,10 @@ public class PostService {
     }
 
     @Transactional
-    public void delate(Long id){
-        Post
+    public void delete(Long id){
+        Post post = postRepository.findById(id).orElseThrow(() -> PostNotFoundException.EXCEPTION);
+        if (!post.getUser().getUserId().equals(userUtil.getUserId())) throw UserNotMatchException.EXCEPTION;
+
+        postRepository.delete(post);
     }
 }

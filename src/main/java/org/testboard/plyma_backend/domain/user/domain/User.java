@@ -19,6 +19,9 @@ public class User {
     private String password;
 
     @Column(length = 4, nullable = false)
+    private Integer classNum;
+
+    @Column(length = 4, nullable = false)
     private String name;
 
     @Column(nullable = false)
@@ -26,10 +29,11 @@ public class User {
     private UserRole userRole;
 
     @Builder
-    public User(String userId, String password, String name, UserRole userRole){
+    public User(String userId, String password, String name, UserRole userRole, Integer classNum){
         this.userId = userId;
         this.password = password;
         this.name = name;
         this.userRole = userRole;
+        this.classNum = classNum;
     }
 }

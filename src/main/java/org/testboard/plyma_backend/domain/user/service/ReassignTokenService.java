@@ -1,7 +1,5 @@
 package org.testboard.plyma_backend.domain.user.service;
 
-import lombok.Builder;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

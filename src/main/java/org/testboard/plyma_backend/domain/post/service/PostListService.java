@@ -2,45 +2,45 @@ package org.testboard.plyma_backend.domain.post.service;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.testboard.plyma_backend.domain.post.domain.Post;
 import org.testboard.plyma_backend.domain.post.domain.repository.PostRepository;
-import org.testboard.plyma_backend.domain.post.presentation.dto.PostRequest;
-import org.testboard.plyma_backend.domain.post.presentation.dto.ReturnIdResponse;
-import org.testboard.plyma_backend.domain.post.service.exception.PostNotFoundException;
-import org.testboard.plyma_backend.domain.user.exception.UserNotMatchException;
+import org.testboard.plyma_backend.domain.post.presentation.dto.PostListResponse;
+import org.testboard.plyma_backend.domain.user.domain.repository.UserRepository;
 import org.testboard.plyma_backend.domain.user.service.util.UserUtil;
+
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class PostCrudService {
+public class PostListService {
     private final PostRepository postRepository;
+    private final UserRepository userRepository;
     private final UserUtil userUtil;
 
-    @Transactional
-    public ReturnIdResponse create(PostRequest request){
-        Post post = postRepository.save(Post.builder()
-                        .title(request.getTitle())
-                        .content(request.getContent())
-                        .build());
+    public PostListResponse getUserPostPage(Pageable pageable){
+        Page<Post> posts = postRepository.findAllByUserOrderByIdDesc(userUtil.getUser(), pageable);
 
-        return new ReturnIdResponse(post.getId());
+        return new PostListResponse(posts.stream().map(this::ofPostResponse).collect(Collectors.toList()), pageable.getPageNumber());
     }
 
-    @Transactional
-    public Long update(Long id, PostRequest request){
-        Post post = postRepository.findById(id).orElseThrow(() -> PostNotFoundException.EXCEPTION);
-        if(!post.getUser().getUserId().equals(userUtil.getUserId())) throw UserNotMatchException.EXCEPTION;
+    public PostListResponse findPost(String title, Pageable pageable){
+        Page<Post> posts;
 
-        return post.update(request.getTitle(), request.getContent());
+        posts = postRepository.findAllByTitleContainingAndOrderByIdDesc(title, pageable);
+
+        return new PostListResponse(posts.stream().map(this::ofPostResponse).collect(Collectors.toList()), posts.getTotalPages());
     }
 
-    @Transactional
-    public void delete(Long id){
-        Post post = postRepository.findById(id).orElseThrow(() -> PostNotFoundException.EXCEPTION);
-        if (!post.getUser().getUserId().equals(userUtil.getUserId())) throw UserNotMatchException.EXCEPTION;
-
-        postRepository.delete(post);
+    private PostListResponse.PostResponse ofPostResponse(Post post){
+        return PostListResponse.PostResponse.builder()
+                .id(post.getId())
+                .title(post.getTitle())
+                .userNickname(post.getUser().getName())
+//                .state(post.getState())
+                .crateDate(post.getCreateDate())
+                .build();
     }
 }

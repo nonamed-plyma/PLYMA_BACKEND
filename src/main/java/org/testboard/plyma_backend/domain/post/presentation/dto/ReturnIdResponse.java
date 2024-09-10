@@ -1,4 +1,13 @@
 package org.testboard.plyma_backend.domain.post.presentation.dto;
 
-public class ReturnIdRespons {
+import lombok.Getter;
+
+@Getter
+public class ReturnIdResponse {
+    private Long userId;
+
+    public ReturnIdResponse(Long userId){
+
+        this.userId = userId;
+    }
 }

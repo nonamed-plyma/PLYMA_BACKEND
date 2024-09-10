@@ -22,14 +22,15 @@ public class SignupService {
     private final JwtTokenProvider jwtTokenProvider;
 
     public TokenResponse userSingUp(SingUpRequest request){
-        if(userRepository.existsByUserId(request.getUserId())){
+        if(userRepository.existsByUserId(request.getUserName())){
             throw new UserIdAlreadyExistException();
         }
 
         User user = userRepository.save(User.builder()
                 .userId(request.getUserId())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .name(request.getNickname())
+                .name(request.getUserName())
+                .classNum(request.getClassNum())
                 .build());
 
         return TokenResponse.builder()

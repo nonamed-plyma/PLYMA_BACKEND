@@ -31,6 +31,10 @@ public class Post {
     @Column(nullable = false)
     private String createDate;
 
+//    @Column(nullable = false)
+//    @Enumerated(EnumType.STRING)
+//    private String state;
+
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
@@ -46,5 +50,12 @@ public class Post {
         this.title = title;
         this.content = content;
         this.createDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.mm.dd"));
+    }
+
+    public Long update(String title, String content){
+        this.title = title;
+        this.content = content;
+
+        return this.id;
     }
 }
