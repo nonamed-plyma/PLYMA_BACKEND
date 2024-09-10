@@ -22,7 +22,7 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(name = "userId")
-    private User userId;
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "postId")
@@ -30,8 +30,12 @@ public class Comment {
 
     @Builder
     public Comment(User user, Post post, String content){
-        this.userId = user;
+        this.user = user;
         this.postId = post;
+        this.content = content;
+    }
+
+    public void update(String content){
         this.content = content;
     }
 }
