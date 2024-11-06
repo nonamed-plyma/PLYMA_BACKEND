@@ -2,19 +2,14 @@ package org.testboard.plyma_backend.domain.user.presentation;
 
 
 import jakarta.transaction.Transactional;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.testboard.plyma_backend.domain.user.presentation.dto.LogInRequest;
 import org.testboard.plyma_backend.domain.user.presentation.dto.SingUpRequest;
 import org.testboard.plyma_backend.domain.user.presentation.dto.TokenResponse;
 import org.testboard.plyma_backend.domain.user.presentation.dto.UserDetailResponse;
-import org.testboard.plyma_backend.domain.user.service.LoginService;
-import org.testboard.plyma_backend.domain.user.service.LogoutService;
-import org.testboard.plyma_backend.domain.user.service.ReassignTokenService;
-import org.testboard.plyma_backend.domain.user.service.SignupService;
+import org.testboard.plyma_backend.domain.user.service.*;
 
 @RestController
 @RequestMapping("/user")
@@ -25,6 +20,7 @@ public class UserController {
     private final LoginService loginService;
     private final LogoutService logoutService;
     private final ReassignTokenService reassignTokenService;
+    public final UserService userService;
 
     @PostMapping(value = "/singup")
     @ResponseStatus(HttpStatus.CREATED)
@@ -50,5 +46,9 @@ public class UserController {
         logoutService.logout();
     }
 
+    @GetMapping
+    public UserDetailResponse getUser(){return userService.getUser();}
 
+    @GetMapping("/{userId}")
+    public void existsUserId(@PathVariable String userId){userService.existsUserId(userId);}
 }
