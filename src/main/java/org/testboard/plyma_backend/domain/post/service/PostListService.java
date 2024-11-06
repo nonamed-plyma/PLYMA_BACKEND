@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PostListService {
     private final PostRepository postRepository;
-    private final UserRepository userRepository;
     private final UserUtil userUtil;
 
     public PostListResponse getUserPostPage(Pageable pageable){
@@ -39,7 +38,6 @@ public class PostListService {
                 .id(post.getId())
                 .title(post.getTitle())
                 .userNickname(post.getUser().getName())
-//                .state(post.getState())
                 .crateDate(post.getCreateDate())
                 .build();
     }

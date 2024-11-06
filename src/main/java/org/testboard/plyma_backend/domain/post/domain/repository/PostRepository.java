@@ -11,4 +11,5 @@ public interface PostRepository extends CrudRepository<Post, Long> {
     Page<Post> findAllByTitleContainingAndOrderByIdDesc(String title, Pageable pageable);
     Page<Post> findAllByUserOrderByIdDesc(User user, Pageable pageable);
 
+    Integer countByUser(User user);
 }
