@@ -3,6 +3,7 @@ package org.testboard.plyma_backend.domain.post.presentation;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.testboard.plyma_backend.domain.post.presentation.dto.PostListResponse;
@@ -13,7 +14,6 @@ import org.testboard.plyma_backend.domain.post.service.PostCrudService;
 import org.testboard.plyma_backend.domain.post.service.PostDetailsService;
 import org.testboard.plyma_backend.domain.post.service.PostListService;
 
-import java.awt.print.Pageable;
 
 @RequestMapping("/post")
 @RequiredArgsConstructor
