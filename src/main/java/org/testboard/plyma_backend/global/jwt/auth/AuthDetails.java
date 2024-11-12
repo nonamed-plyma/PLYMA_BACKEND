@@ -2,8 +2,10 @@ package org.testboard.plyma_backend.global.jwt.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
+//import org.springframework.security.core.userdetails.User;
+
 import org.springframework.security.core.userdetails.UserDetails;
+import org.testboard.plyma_backend.domain.user.domain.User;
 
 import java.util.Collection;
 
@@ -18,7 +20,7 @@ public class AuthDetails implements UserDetails {
     public String getPassword(){return user.getPassword();}//password가져오기
 
     @Override
-    public String getUsername(){return user.getUsername();}//Username가져오기
+    public String getUsername(){return user.getName();}//Username가져오기
 
     @Override
     public boolean isAccountNonExpired(){return true;}//계정 비활성화 되어있지 않는가?
