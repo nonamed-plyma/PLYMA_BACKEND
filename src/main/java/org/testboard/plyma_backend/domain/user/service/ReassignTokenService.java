@@ -14,7 +14,7 @@ public class ReassignTokenService {
     private final JwtTokenProvider jwtTokenProvider;
     private final UserDetailsService userDetailsService;
 
-    public TokenResponse reasSignToken(String refreshToken){
+    public TokenResponse ReasSignToken(String refreshToken){
         if (!jwtTokenProvider.validateToken(refreshToken)) {
             throw UserNotFoundException.EXCEPTION;
         }

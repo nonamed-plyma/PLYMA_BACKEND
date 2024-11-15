@@ -1,9 +1,11 @@
 package org.testboard.plyma_backend.domain.user.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.testboard.plyma_backend.domain.post.domain.repository.PostRepository;
+import org.testboard.plyma_backend.domain.post.presentation.dto.PostResponse;
 import org.testboard.plyma_backend.domain.user.domain.User;
 import org.testboard.plyma_backend.domain.user.domain.repository.UserRepository;
 import org.testboard.plyma_backend.domain.user.exception.UserIdAlreadyExistException;
@@ -14,12 +16,12 @@ import org.testboard.plyma_backend.domain.user.service.util.UserUtil;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class UserService {
-    private final UserUtil util;
+    private final UserUtil userUtil;
     private final PostRepository postRepository;
     private final UserRepository userRepository;
 
     public UserDetailResponse getUser(){
-        User user = util.getUser();
+        User user = userUtil.getUser();
 
         return UserDetailResponse.builder()
                 .userId(user.getUserId())
@@ -29,6 +31,6 @@ public class UserService {
     }
 
     public void existsUserId(String userId){
-        if(userRepository.existsByUserId(userId)) throw UserIdAlreadyExistException.EXCEPTION;
+        if (userRepository.existsByUserId(userId)) throw UserIdAlreadyExistException.EXCEPTION;
     }
 }

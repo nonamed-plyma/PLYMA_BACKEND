@@ -7,7 +7,6 @@ public class ReturnIdResponse {
     private Long userId;
 
     public ReturnIdResponse(Long userId){
-
         this.userId = userId;
     }
 }

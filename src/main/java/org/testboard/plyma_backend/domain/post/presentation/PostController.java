@@ -38,5 +38,8 @@ public class PostController {
     public PostResponse getPostDetails(@PathVariable @NotNull Long id){return postDetailsService.getPostDetails(id);}
 
     @GetMapping("/search")
-    public PostListResponse findPost(@RequestParam(value = "title") String title, Pageable pageable){return postListService.findPost(title, pageable);}
+    public PostListResponse findPost(@RequestParam(value = "title") String title, Pageable pageable){ return postListService.findPost(title,pageable);}
+
+    @GetMapping("/user")
+    public PostListResponse getUserPostsPaged(Pageable pageable){return postListService.getUserPostPage(pageable);}
 }

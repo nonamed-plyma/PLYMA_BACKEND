@@ -1,7 +1,9 @@
 package org.testboard.plyma_backend.domain.user.presentation.dto;
 
 import lombok.Builder;
+import lombok.Getter;
 
+@Getter
 public class TokenResponse {
 
     private final String accessToken;

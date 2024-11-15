@@ -13,8 +13,8 @@ public class AuthDetailService implements UserDetailsService {
     private final UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String userName){
-        return userRepository.findByUserId(userName)
+    public UserDetails loadUserByUsername(String userId) {  // 메소드 이름 수정
+        return userRepository.findByUserId(userId)
                 .map(AuthDetails::new)
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
     }

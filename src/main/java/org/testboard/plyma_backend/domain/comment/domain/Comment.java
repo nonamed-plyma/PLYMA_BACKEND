@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
 import org.testboard.plyma_backend.domain.post.domain.Post;
 import org.testboard.plyma_backend.domain.user.domain.User;
 
@@ -26,12 +27,12 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(name = "postId")
-    private Post postId;
+    private Post post;
 
     @Builder
     public Comment(User user, Post post, String content){
         this.user = user;
-        this.postId = post;
+        this.post = post;
         this.content = content;
     }
 

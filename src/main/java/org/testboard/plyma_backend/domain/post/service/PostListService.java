@@ -28,7 +28,7 @@ public class PostListService {
     public PostListResponse findPost(String title, Pageable pageable){
         Page<Post> posts;
 
-        posts = postRepository.findAllByTitleContainingAndOrderByIdDesc(title, pageable);
+        posts = postRepository.findAllByTitleContainingOrderByIdDesc(title, pageable);
 
         return new PostListResponse(posts.stream().map(this::ofPostResponse).collect(Collectors.toList()), posts.getTotalPages());
     }
