@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PostListService {
     private final PostRepository postRepository;
-    private final UserRepository userRepository;
     private final UserUtil userUtil;
 
     public PostListResponse getUserPostPage(Pageable pageable){
@@ -29,7 +28,7 @@ public class PostListService {
     public PostListResponse findPost(String title, Pageable pageable){
         Page<Post> posts;
 
-        posts = postRepository.findAllByTitleContainingAndOrderByIdDesc(title, pageable);
+        posts = postRepository.findAllByTitleContainingOrderByIdDesc(title, pageable);
 
         return new PostListResponse(posts.stream().map(this::ofPostResponse).collect(Collectors.toList()), posts.getTotalPages());
     }
@@ -39,7 +38,6 @@ public class PostListService {
                 .id(post.getId())
                 .title(post.getTitle())
                 .userNickname(post.getUser().getName())
-//                .state(post.getState())
                 .crateDate(post.getCreateDate())
                 .build();
     }

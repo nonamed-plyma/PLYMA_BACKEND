@@ -34,7 +34,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation platform('com.amazonaws:aws-java-sdk-bom:1.11.1000')
     implementation 'com.amazonaws:aws-java-sdk-s3'
-    implementation 'ch.qos.logback:logback-classic:1.4.1'
+    //implementation 'ch.qos.logback:logback-classic:1.4.1'
     implementation 'org.slf4j:slf4j-api:2.0.3'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.mysql:mysql-connector-j'

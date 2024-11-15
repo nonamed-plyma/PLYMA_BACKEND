@@ -15,10 +15,10 @@ public class PostResponse {
     private final String title;
     private final String content;
     private final String state;
-    private final List<CommentResponse> comment;
+    private final List<CommentResponse> comments;
 
     @Builder
-    private PostResponse(Long id, String userId, String userNickname, String title, String content, String createDate, String state, List<CommentResponse> comment){
+    private PostResponse(Long id, String userId, String userNickname, String title, String content, String createDate, String state, List<CommentResponse> comments){
         this.id = id;
         this.userId = userId;
         this.userNickname = userNickname;
@@ -26,6 +26,6 @@ public class PostResponse {
         this.content = content;
         this.createDate = createDate;
         this.state = state;
-        this.comment = comment;
+        this.comments = comments;
     }
 }

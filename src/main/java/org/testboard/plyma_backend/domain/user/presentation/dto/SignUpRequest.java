@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 
 @Getter
-public class SingUpRequest {
+public class SignUpRequest {
     @NotBlank
     @Size(min = 1, max = 4)
     private String userName;
@@ -17,7 +17,7 @@ public class SingUpRequest {
     private Integer classNum;
 
     @NotBlank
-    @Size(min = 4, max = 4)
+    @Size(min = 4, max = 10)
     private String userId;
 
     @NotBlank

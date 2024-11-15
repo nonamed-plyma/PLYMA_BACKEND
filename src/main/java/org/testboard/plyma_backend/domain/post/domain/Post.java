@@ -31,17 +31,12 @@ public class Post {
     @Column(nullable = false)
     private String createDate;
 
-//    @Column(nullable = false)
-//    @Enumerated(EnumType.STRING)
-//    private String state;
-
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
 
-    //뭔가 하긴 했는데 이게 맞는지 잘 모르겠슴다
-    @OneToMany(mappedBy = "post")
-    private List<Comment> commentList;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    private List<Comment> commentList = new ArrayList<>();
 
     @Builder
     public Post(User user, Long id, String title, String content){
@@ -50,6 +45,7 @@ public class Post {
         this.title = title;
         this.content = content;
         this.createDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.mm.dd"));
+        
     }
 
     public Long update(String title, String content){
