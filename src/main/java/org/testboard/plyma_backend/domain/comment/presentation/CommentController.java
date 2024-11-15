@@ -24,5 +24,5 @@ public class CommentController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delate(@PathVariable @NotNull Long id){commentService.delate(id);}
+    public void delete(@PathVariable @NotNull Long id){commentService.delete(id);}
 }

@@ -21,7 +21,6 @@ public class UserController {
     private final LogoutService logoutService;
     private final UserService userService;
     private final ReassignTokenService reassignTokenService;
-    public final UserService userService;
 
     @PostMapping(value = "/signup")
     @ResponseStatus(HttpStatus.CREATED)

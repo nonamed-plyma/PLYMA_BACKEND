@@ -44,7 +44,7 @@ public class CommentService {
     }
 
     @Transactional
-    public void delate(Long id){
+    public void delete(Long id){
         Comment comment = commentRepository.findById(id).orElseThrow(() -> CommentNotFound.EXCEPTION);
         if(comment.getUser().getUserId().equals(userUtil.getUserId())) throw UserNotMatchException.EXCEPTION;
 
