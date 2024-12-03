@@ -8,9 +8,11 @@ import lombok.RequiredArgsConstructor;
 import org.apache.http.protocol.HTTP;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
 
 @RequiredArgsConstructor
 public class JwtTokenFilter extends OncePerRequestFilter {
@@ -19,20 +21,26 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     private static final String PREFIX = "Bearer";
 
     @Override
-    protected void doFilterInternal(HttpServletRequest reques, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
-        String token = resolveToken(reques);
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
+        String token = resolveToken(request);
 
-        if(token != null && jwtTokenProvider.validateToken(token)){
-            Authentication authentication = jwtTokenProvider.getAuthentication(token);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+        try {
+            if (token != null && jwtTokenProvider.validateToken(token)) {
+                Authentication authentication = jwtTokenProvider.getAuthentication(token);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
+        } catch (Exception e) {
         }
-        chain.doFilter(reques, response);
+
+        filterChain.doFilter(request, response);
     }
 
-    private String resolveToken(HttpServletRequest request){
-        String bearnerToken = request.getHeader(HEADER);
-
-        if (bearnerToken != null && bearnerToken.startsWith(PREFIX)) return bearnerToken.substring(7);
+    private String resolveToken(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+            return bearerToken;
+        }
         return null;
     }
 }

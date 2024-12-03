@@ -88,9 +88,19 @@ public class JwtTokenProvider {
     }
 
     public boolean validateToken(String tk) {
-        isRefreshToken(tk);
+        // isRefreshToken(tk); // 이 부분을 제거하거나 아래와 같이 수정
 
         try {
+            // Bearer 접두어 처리
+            if (tk.startsWith("Bearer ")) {
+                tk = tk.substring(7);
+            }
+
+            // Access 토큰 검증
+            if (!getHeader(tk).getType().equals("access")) {
+                throw NotAccessTokenException.EXCEPTION;
+            }
+
             Jwts.parser().setSigningKey(key).parseClaimsJws(tk);
             return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException exception) {
@@ -106,6 +116,7 @@ public class JwtTokenProvider {
             log.error("지원하지 않는 토큰");
             throw TokenErrorException.EXCEPTION;
         } catch (Exception exception) {
+            log.error("토큰 검증 실패: {}", exception.getMessage());
             throw TokenUnauthorizedException.EXCEPTION;
         }
     }

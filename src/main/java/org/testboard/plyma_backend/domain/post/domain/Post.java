@@ -45,8 +45,7 @@ public class Post {
         this.id = id;
         this.title = title;
         this.content = content;
-        this.createDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.mm.dd"));
-        
+        this.createDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
     }
 
     public Long update(String title, String content){

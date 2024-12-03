@@ -4,9 +4,9 @@ import lombok.Getter;
 
 @Getter
 public class ReturnIdResponse {
-    private Long userId;
+    private Long id;
 
-    public ReturnIdResponse(Long userId){
-        this.userId = userId;
+    public ReturnIdResponse(Long id){
+        this.id = id;
     }
 }
